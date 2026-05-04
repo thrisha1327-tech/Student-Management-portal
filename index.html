@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Student Portal Dashboard</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar Navigation (Desktop) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="ph-fill ph-graduation-cap text-primary logo-icon"></i>
+                <h2 class="logo-text">EduDash</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="home">
+                    <i class="ph ph-squares-four"></i><span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="courses">
+                    <i class="ph ph-books"></i><span>Courses</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="exams">
+                    <i class="ph ph-certificate"></i><span>Exams</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="notice">
+                    <i class="ph ph-megaphone"></i><span>Notice</span>
+                </a>
+
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout-btn">
+                    <i class="ph ph-sign-out"></i><span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Layout -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="topbar">
+                <div class="mobile-brand">
+                    <i class="ph-fill ph-graduation-cap text-primary logo-icon"></i>
+                    <h2>EduDash</h2>
+                </div>
+                <div class="desktop-title" style="display: flex; align-items: center; gap: 8px;">
+                    <h2 style="font-weight: 700; color: var(--text-dark); margin: 0;">Hi Pradeep 👋</h2>
+                </div>
+                <h1 id="page-title" style="display: none;">Overview</h1>
+                
+                <div class="topbar-actions" style="margin-left: auto;">
+                    <div class="search-box" style="display: none;">
+                        <i class="ph ph-magnifying-glass"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                    <button class="icon-btn theme-toggle-btn" id="theme-toggle" title="Toggle Dark Mode">
+                        <i class="ph ph-moon" id="theme-icon"></i>
+                    </button>
+                    <button class="icon-btn notification-btn" onclick="document.querySelector('.sidebar-nav .nav-item[data-tab=\'notice\']').click()">
+                        <i class="ph ph-bell"></i>
+                        <span class="badge-dot"></span>
+                    </button>
+                    <div class="profile-min">
+                        <img src="https://api.dicebear.com/8.x/notionists/svg?seed=Pradeep&backgroundColor=f1f5f9" alt="User">
+                        <div class="profile-name">D Venkata Krishna Pradeep</div>
+                        <i class="ph ph-caret-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Grid Container -->
+            <!-- We will use a wrapper that changes class based on active tab -->
+            <div class="dashboard-wrapper show-tab-home">
+                
+                <!-- 1. Student Profile Card -->
+                <div class="card profile-card" data-category="home profile">
+                    <div class="profile-header">
+                        <div class="avatar-container">
+                            <img src="https://api.dicebear.com/8.x/notionists/svg?seed=Pradeep&backgroundColor=e0e7ff" alt="Avatar" class="avatar-lg">
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="profile-title">
+                            <h2 style="font-size: 18px;">D Venkata Krishna Pradeep</h2>
+                            <p class="student-id">ID: 24501A0548</p>
+                        </div>
+                    </div>
+                    <div class="profile-details">
+                        <div class="detail-item"><i class="ph ph-student text-muted"></i> <span>BTech CSE</span></div>
+                        <div class="detail-item"><i class="ph ph-calendar-blank text-muted"></i> <span>Year 2, Semester 4</span></div>
+                        <div class="detail-item"><i class="ph ph-envelope-simple text-muted"></i> <span>24501A0548@pvpsit.ac.in</span></div>
+                        <div class="detail-item"><i class="ph ph-phone text-muted"></i> <span>+91 9959187799</span></div>
+                        <div class="detail-item"><i class="ph ph-user-focus text-muted"></i> <span>Advisor: D.Jyothi</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. Academic Overview -->
+                <div class="card academic-overview" data-category="home">
+                    <div class="card-header">
+                        <h3>Academic Overview</h3>
+                        <i class="ph ph-dots-three"></i>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">CGPA</span>
+                            <span class="stat-value text-primary">9.13</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">SGPA</span>
+                            <span class="stat-value">8.58</span>
+                        </div>
+                    </div>
+                    <div class="progress-section mt-4">
+                        <div class="progress-flex">
+                            <span class="progress-labels">Degree Progress (82/160 Credits)</span>
+                            <span class="progress-percentage">51%</span>
+                        </div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: 51%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- 4. Attendance Tracker -->
+                <div class="card attendance-card" data-category="home">
+                    <div class="card-header">
+                        <h3>Attendance Tracker</h3>
+                        <button class="icon-btn refresh-btn"><i class="ph ph-arrows-clockwise"></i></button>
+                    </div>
+                    <div class="attendance-content">
+                        <div class="attendance-chart">
+                            <div class="circular-progress" data-progress="84" style="--prog-color: var(--primary); --prog-light: var(--primary-light);">
+                                <span class="progress-value">84%</span>
+                            </div>
+                            <span class="chart-label">Overall</span>
+                        </div>
+                        <div class="attendance-subjects">
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Database Management System</span><span class="subj-percent text-warning">78%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-warning" style="width: 78%;"></div></div>
+                            </div>
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Operating System</span><span class="subj-percent text-primary">85%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 85%;"></div></div>
+                            </div>
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Software Engineering</span><span class="subj-percent text-primary">87%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 87%;"></div></div>
+                            </div>
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Managerial Economics and Financial Analysis</span><span class="subj-percent text-primary">86%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 86%;"></div></div>
+                            </div>
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Probability and Statistics</span><span class="subj-percent text-success">92%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-success" style="width: 92%;"></div></div>
+                            </div>
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Full Stack Development-1</span><span class="subj-percent text-success">100%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-success" style="width: 100%;"></div></div>
+                            </div>
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Design Thinking and Innovation Lab</span><span class="subj-percent text-warning">65%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-warning" style="width: 65%;"></div></div>
+                                <div class="alert-text text-danger mt-1"><i class="ph ph-warning-circle"></i> Low attendance alert</div>
+                            </div>
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Operating Systems Lab</span><span class="subj-percent text-success">95%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-success" style="width: 95%;"></div></div>
+                            </div>
+                            <div class="subject-row">
+                                <div class="subj-info"><span class="subj-name">Database Management System Lab</span><span class="subj-percent text-warning">72%</span></div>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-warning" style="width: 72%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Subjects / Courses -->
+                <div class="card subjects-card" data-category="courses">
+                    <div class="card-header">
+                        <h3>Current Courses</h3>
+                        <a href="#" class="view-all" id="view-all-courses">View All</a>
+                    </div>
+                    <div class="course-list">
+                        <div class="course-item">
+                            <div class="course-icon bg-light-primary text-primary"><i class="ph ph-database"></i></div>
+                            <div class="course-details">
+                                <h4>Database Management System</h4>
+                                <p>Mr.N.Sudhakar Reddy</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">100% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-success" style="width: 100%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon bg-light-warning text-warning"><i class="ph ph-cpu"></i></div>
+                            <div class="course-details">
+                                <h4>Operating System</h4>
+                                <p>Ms.Y.Manasa</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">97% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-success" style="width: 97%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon bg-light-success text-success"><i class="ph ph-code"></i></div>
+                            <div class="course-details">
+                                <h4>Software Engineering</h4>
+                                <p>Dr. K.Koteswara Rao</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">87% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 87%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon bg-light-info text-info"><i class="ph ph-chart-line-up"></i></div>
+                            <div class="course-details">
+                                <h4>Managerial Economics and Financial Analysis</h4>
+                                <p>Mr.J.Surendra</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">90% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 90%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon bg-light-danger text-danger"><i class="ph ph-calculator"></i></div>
+                            <div class="course-details">
+                                <h4>Probability and Statistics</h4>
+                                <p>Dr.P.Padmaja</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">85% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 85%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon bg-light-primary text-primary"><i class="ph ph-browsers"></i></div>
+                            <div class="course-details">
+                                <h4>Full Stack Development-1</h4>
+                                <p>Ms.D.Jyothi</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">95% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-success" style="width: 95%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon bg-light-warning text-warning"><i class="ph ph-lightbulb"></i></div>
+                            <div class="course-details">
+                                <h4>Design Thinking and Innovation Lab</h4>
+                                <p>Mr.J.Surendra</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">91% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 91%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon bg-light-success text-success"><i class="ph ph-desktop"></i></div>
+                            <div class="course-details">
+                                <h4>Operating Systems Lab</h4>
+                                <p>Ms.Y.Manasa</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">90% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 90%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon bg-light-danger text-danger"><i class="ph ph-hard-drives"></i></div>
+                            <div class="course-details">
+                                <h4>Database Management System Lab</h4>
+                                <p>Mr.N.Sudhakar Reddy</p>
+                            </div>
+                            <div class="course-progress">
+                                <span class="progress-text">80% Complete</span>
+                                <div class="progress-bg-sm"><div class="progress-fill-sm bg-primary" style="width: 80%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Assignments & Tasks -->
+                <div class="card assignments-card" data-category="courses">
+                    <div class="card-header">
+                        <h3>Assignments & Tasks</h3>
+                        <button class="icon-btn" id="add-task-btn"><i class="ph ph-plus"></i></button>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item completed">
+                            <label class="custom-checkbox"><input type="checkbox" checked><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">MEFA Assignment</p></div>
+                            <span class="badge badge-success">Completed</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                        <li class="task-item completed">
+                            <label class="custom-checkbox"><input type="checkbox" checked><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">P & S Assignment</p></div>
+                            <span class="badge badge-success">Completed</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                        <li class="task-item completed">
+                            <label class="custom-checkbox"><input type="checkbox" checked><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">FSD Project</p></div>
+                            <span class="badge badge-success">Completed</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                        <li class="task-item completed">
+                            <label class="custom-checkbox"><input type="checkbox" checked><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">FSD Infosys Certification</p></div>
+                            <span class="badge badge-success">Completed</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                        <li class="task-item">
+                            <label class="custom-checkbox"><input type="checkbox"><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">FSD Record</p></div>
+                            <span class="badge badge-warning">In Progress</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                        <li class="task-item">
+                            <label class="custom-checkbox"><input type="checkbox"><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">DT Record</p></div>
+                            <span class="badge badge-warning">In Progress</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                        <li class="task-item">
+                            <label class="custom-checkbox"><input type="checkbox"><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">OS Record</p></div>
+                            <span class="badge badge-danger">Pending</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                        <li class="task-item">
+                            <label class="custom-checkbox"><input type="checkbox"><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">DBMS Record</p></div>
+                            <span class="badge badge-danger">Pending</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                        <li class="task-item">
+                            <label class="custom-checkbox"><input type="checkbox"><span class="checkmark"></span></label>
+                            <div class="task-info"><p class="task-title">OS Unit 5 PPT Presentation</p></div>
+                            <span class="badge badge-danger">Pending</span>
+                            <button class="icon-btn-sm text-danger delete-task-btn" style="margin-left: 12px;"><i class="ph ph-trash"></i></button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 6. Performance / Scorecard -->
+                <div class="card performance-card" data-category="exams">
+                    <div class="card-header">
+                        <h3>Performance Trend</h3>
+                        <select class="custom-select" id="performance-semester-select">
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3" selected>Semester 3</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Smart Analytics Removed as per request -->
+
+                <!-- 2. Countdown Timer -->
+                <div class="card countdown-card bg-primary-gradient text-white" data-category="exams" style="position: relative; overflow: hidden; border: none; box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);">
+                    <div style="position: absolute; right: -25px; top: -15px; opacity: 0.15; transform: rotate(15deg);"><i class="ph-fill ph-hourglass-high" style="font-size: 140px;"></i></div>
+                    <div class="card-header" style="border-bottom: none; z-index: 1; position: relative; padding-bottom: 5px;">
+                        <h3 style="color: white; margin-bottom: 0; font-size: 18px; font-weight: 600;"><i class="ph ph-calendar-blank" style="margin-right: 6px;"></i> Next Exam</h3>
+                        <span class="badge" style="background: rgba(255,255,255,0.25); color: white; border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(4px);">Midterm 2</span>
+                    </div>
+                    <div class="card-body" style="padding: 0 20px 20px; z-index: 1; position: relative;">
+                        <p style="opacity: 0.95; font-size: 15px; margin-bottom: 16px; font-weight: 500;">Computer Networks (CS305)</p>
+                        <div class="timer-display" style="display: flex; gap: 12px; justify-content: space-between;">
+                            <div class="time-box" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 14px 8px; border-radius: 12px; text-align: center; flex: 1; backdrop-filter: blur(8px); box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);">
+                                <h2 id="timer-days" style="color: white; font-size: 26px; margin: 0; font-weight: 700; font-variant-numeric: tabular-nums;">12</h2><span style="font-size: 10px; opacity: 0.8; font-weight: 600; letter-spacing: 0.5px;">DAYS</span>
+                            </div>
+                            <div class="time-box" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 14px 8px; border-radius: 12px; text-align: center; flex: 1; backdrop-filter: blur(8px); box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);">
+                                <h2 id="timer-hours" style="color: white; font-size: 26px; margin: 0; font-weight: 700; font-variant-numeric: tabular-nums;">04</h2><span style="font-size: 10px; opacity: 0.8; font-weight: 600; letter-spacing: 0.5px;">HOURS</span>
+                            </div>
+                            <div class="time-box" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 14px 8px; border-radius: 12px; text-align: center; flex: 1; backdrop-filter: blur(8px); box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);">
+                                <h2 id="timer-mins" style="color: white; font-size: 26px; margin: 0; font-weight: 700; font-variant-numeric: tabular-nums;">50</h2><span style="font-size: 10px; opacity: 0.8; font-weight: 600; letter-spacing: 0.5px;">MINS</span>
+                            </div>
+                            <div class="time-box" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 14px 8px; border-radius: 12px; text-align: center; flex: 1; backdrop-filter: blur(8px); box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);">
+                                <h2 id="timer-secs" style="color: white; font-size: 26px; margin: 0; font-weight: 700; font-variant-numeric: tabular-nums;">00</h2><span style="font-size: 10px; opacity: 0.8; font-weight: 600; letter-spacing: 0.5px;">SECS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Leaderboard -->
+                <div class="card leaderboard-card" data-category="exams">
+                    <div class="card-header">
+                        <h3><i class="ph-fill ph-trophy text-warning" style="margin-right: 8px;"></i> Class Leaderboard</h3>
+                        <button class="icon-btn-sm"><i class="ph ph-dots-three"></i></button>
+                    </div>
+                    <div class="leaderboard-body" style="padding: 16px;">
+                        <div class="user-rank mb-3" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 16px; position: relative; overflow: hidden;">
+                            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--primary-color);"></div>
+                            <div class="rank-badge" style="background: linear-gradient(135deg, #4f46e5, #3b82f6); color: white; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);">#16</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 15px; font-weight: 600;">Your Rank</h4>
+                                <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">CGPA: 9.13</span>
+                            </div>
+                            <i class="ph-fill ph-medal text-warning" style="margin-left: auto; font-size: 28px; filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.4));" title="Rank 16"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Detailed Result View -->
+                <div class="card result-drill-card" data-category="exams">
+                    <div class="card-header">
+                        <h3><i class="ph-fill ph-folder-open text-info" style="margin-right: 8px;"></i> Detailed Result Viewer</h3>
+                        <a href="#" id="view-more-results" style="font-size: 14px; color: var(--primary); font-weight: 600; text-decoration: none;">View More</a>
+                    </div>
+                    <div class="card-body" style="padding: 16px;">
+                        <div class="custom-select-wrapper" style="margin-bottom: 16px;">
+                            <select class="custom-select" style="width: 100%; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 8px; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; background-color: #f8fafc; color: var(--text-dark); cursor: pointer;">
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3" selected>Semester 3</option>
+                            </select>
+                        </div>
+                        
+                        <div class="subject-breakdown" id="detailed-results-list" style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Universal Human Values</h5><span class="badge badge-success">A</span>
+                            </div>
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Discrete Mathematics and Graph Theory</h5><span class="badge badge-primary">B</span>
+                            </div>
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Digital Logics and Computer Organisation</h5><span class="badge badge-success">A</span>
+                            </div>
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Advanced Data Structures and Algorithm Analysis</h5><span class="badge badge-warning">C</span>
+                            </div>
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Object Oriented Programming Language</h5><span class="badge badge-success">A</span>
+                            </div>
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Advanced Data Structures and Algorithm Analysis Lab</h5><span class="badge badge-primary">B</span>
+                            </div>
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Object Oriented Programming Language Lab</h5><span class="badge badge-success">A</span>
+                            </div>
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Python Programming Lab</h5><span class="badge badge-success" style="background:#8b5cf6;color:white;">S</span>
+                            </div>
+                            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; background: var(--bg-body); display: flex; justify-content: space-between; align-items: center;">
+                                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">Environmental Science</h5><span class="badge badge-light">Completed</span>
+                            </div>
+                        </div>
+                        <!-- View More and Report Options removed/moved -->
+                    </div>
+                </div>
+
+
+                <!-- 7. Events + Notice Board & 8. Fees & Campus Info -->
+                <div class="card notice-events-card" data-category="notice">
+                    <div class="notice-tabs">
+                        <button class="notice-tab active" id="tab-notices" data-target="notices-container">Notices & Alerts</button>
+                        <button class="notice-tab" id="tab-events" data-target="events-container">Events & Clubs</button>
+                    </div>
+                    <div class="notice-list" id="notices-container">
+                        <!-- Notices & Alerts -->
+                        <div class="notice-item important">
+                            <div class="notice-icon text-danger bg-light-danger"><i class="ph ph-warning-circle"></i></div>
+                            <div class="notice-content">
+                                <h4>Smart interviews training fees</h4>
+                                <p>Please complete payment for the Smart Interviews Training modules.</p>
+                                <span class="notice-date">Important</span>
+                            </div>
+                        </div>
+                        <div class="notice-item important">
+                            <div class="notice-icon text-danger bg-light-danger"><i class="ph ph-warning-circle"></i></div>
+                            <div class="notice-content">
+                                <h4>End semester exam fees</h4>
+                                <p>The payment portal is now open for End semester exam fees.</p>
+                                <span class="notice-date">Alert</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon text-primary bg-light-primary"><i class="ph ph-exam"></i></div>
+                            <div class="notice-content">
+                                <h4>End semester exams</h4>
+                                <p>Timetables are out for the upcoming end semester examinations.</p>
+                                <span class="notice-date">Academic</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon text-primary bg-light-primary"><i class="ph ph-exam"></i></div>
+                            <div class="notice-content">
+                                <h4>Mid-2 exams</h4>
+                                <p>Mid-2 examinations are scheduled to begin next week.</p>
+                                <span class="notice-date">Academic</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon text-primary bg-light-primary"><i class="ph ph-exam"></i></div>
+                            <div class="notice-content">
+                                <h4>Internal exams</h4>
+                                <p>Lab internal exams will be conducted during normal lab sessions.</p>
+                                <span class="notice-date">Academic</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notice-list" id="events-container" style="display: none;">
+                        <!-- Events & Clubs -->
+                        <div class="notice-item">
+                            <div class="notice-icon text-success bg-light-success"><i class="ph ph-confetti"></i></div>
+                            <div class="notice-content">
+                                <h4>Annual Day Celebration</h4>
+                                <p>Join us for the grand Annual Day celebrations on campus.</p>
+                                <span class="notice-date">Event</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon text-success bg-light-success"><i class="ph ph-music-notes"></i></div>
+                            <div class="notice-content">
+                                <h4>Department Cultural Fest</h4>
+                                <p>Showcase your talents and participate in various cultural activities.</p>
+                                <span class="notice-date">Club</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon text-warning bg-light-warning"><i class="ph ph-lightbulb"></i></div>
+                            <div class="notice-content">
+                                <h4>Dharma Tantragyaan Kurukshethera- Innovating for justice</h4>
+                                <p>A unique symposium combining technology and legal innovation.</p>
+                                <span class="notice-date">Event</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon text-info bg-light-info"><i class="ph ph-star"></i></div>
+                            <div class="notice-content">
+                                <h4>Women's Day Celebration</h4>
+                                <p>Special events and guest talks to celebrate Women's Day.</p>
+                                <span class="notice-date">Event</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon text-primary bg-light-primary"><i class="ph ph-code"></i></div>
+                            <div class="notice-content">
+                                <h4>Gen-AI Hackathon</h4>
+                                <p>48-hour hackathon focused on developing Generative AI solutions.</p>
+                                <span class="notice-date">Club</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. Weekly Timetable -->
+                <div class="card timetable-card" data-category="courses">
+                    <div class="timetable-header">
+                        <div class="tt-title">CLASS TIME TABLE</div>
+                        <div class="tt-subtitle">DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING</div>
+                        <div class="tt-meta">ACADEMIC YEAR: 2025-2026</div>
+                        <div class="tt-info-row">
+                            <span>II B.TECH - SEMESTER-II</span>
+                            <span>SECTION: S1</span>
+                        </div>
+                        <div class="tt-info-row">
+                            <span>ROOM NO: 209</span>
+                            <span>Commencement Date: 01-12-2025</span>
+                        </div>
+                    </div>
+                    
+                    <div class="timetable-wrapper">
+                        <table class="timetable-table">
+                            <thead>
+                                <tr>
+                                    <th>HOUR</th>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th class="break-col-header"></th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                </tr>
+                                <tr>
+                                    <th>DAY / TIME</th>
+                                    <th>09:00-10:00</th>
+                                    <th>10:00-11:00</th>
+                                    <th>11:00-12:00</th>
+                                    <th class="break-col-header">12:00-01:00</th>
+                                    <th>01:00-02:00</th>
+                                    <th>02:00-03:00</th>
+                                    <th>03:00-04:00</th>
+                                    <th>04:00-05:00</th>
+                                    <th>05:00-06:00</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>MON</th>
+                                    <td colspan="3"><span class="cell-course">SI TRAINING</span><span class="cell-room">(ROOM NO:113)</span></td>
+                                    <td rowspan="6" class="break-col">BREAK</td>
+                                    <td colspan="3"><span class="cell-course">SI TRAINING</span><span class="cell-room">(ROOM NO:113)</span></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>TUE</th>
+                                    <td colspan="3"><span class="cell-course">SI TRAINING</span><span class="cell-room">(ROOM NO:113)</span></td>
+                                    <td colspan="3"><span class="cell-course">SI TRAINING</span><span class="cell-room">(ROOM NO:113)</span></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>WED</th>
+                                    <td><span class="cell-course">OS</span></td>
+                                    <td><span class="cell-course">P&S</span></td>
+                                    <td><span class="cell-course">SE</span></td>
+                                    <td><span class="cell-course">P&S</span></td>
+                                    <td colspan="2"><span class="cell-course">DT LAB</span><span class="cell-room">(ROOM NO:459)</span></td>
+                                    <td></td>
+                                    <td><span class="cell-course">H-APP</span></td>
+                                </tr>
+                                <tr>
+                                    <th>THU</th>
+                                    <td colspan="3"><span class="cell-course">FSD LAB</span><span class="cell-room">(ROOM NO:224)</span></td>
+                                    <td><span class="cell-course">OS</span></td>
+                                    <td><span class="cell-course">MEFA</span></td>
+                                    <td><span class="cell-course">SE</span></td>
+                                    <td><span class="cell-course">DBMS</span></td>
+                                    <td><span class="cell-course">H-APP</span></td>
+                                </tr>
+                                <tr>
+                                    <th>FRI</th>
+                                    <td><span class="cell-course">DBMS</span></td>
+                                    <td><span class="cell-course">OS</span></td>
+                                    <td><span class="cell-course">P&S</span></td>
+                                    <td><span class="cell-course">MEFA</span></td>
+                                    <td colspan="2"><span class="cell-course">DBMS LAB</span><span class="cell-room">(ROOM NO:208)</span></td>
+                                    <td></td>
+                                    <td><span class="cell-course">H-APP</span></td>
+                                </tr>
+                                <tr>
+                                    <th>SAT</th>
+                                    <td colspan="3"><span class="cell-course">AP&LR/APP(HONORS-113)</span><span class="cell-room">(ROOM NO:323)</span></td>
+                                    <td colspan="2"><span class="cell-course">OS LAB</span><span class="cell-room">(ROOM NO:208)</span></td>
+                                    <td><span class="cell-course">DBMS</span></td>
+                                    <td><span class="cell-course">SE</span></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 10. Reference TextBooks -->
+                <div class="card resources-card" data-category="courses">
+                    <div class="card-header">
+                        <h3>Reference TextBooks</h3>
+                    </div>
+                    <div class="textbooks-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
+                        
+                        <div class="textbook-subject">
+                            <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 15px;"><i class="ph ph-books"></i> Managerial Economics and Financial Analysis</h4>
+                            <ul style="list-style-type: decimal; padding-left: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+                                <li>Engineering economics, R. Panneerselvam, 2nd Edition, PHI Learning Pvt. Ltd., 2013.</li>
+                                <li>Managerial Economics and Financial Analysis, by J.V.Prabhakar Rao, Maruthi Publications, 2011.</li>
+                            </ul>
+                        </div>
+
+                        <div class="textbook-subject">
+                            <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 15px;"><i class="ph ph-books"></i> Probability and Statistics</h4>
+                            <ul style="list-style-type: decimal; padding-left: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+                                <li>S.C.Gupta and V.K.Kapoor, Fundamentals of Mathematical Statistics, 11/e, Sultan Chand &amp; Sons Publications, 2012.</li>
+                                <li>Miller and Freunds, Probability and Statistics for Engineers, 7/e, Pearson, 2008.</li>
+                            </ul>
+                        </div>
+
+                        <div class="textbook-subject">
+                            <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 15px;"><i class="ph ph-books"></i> Operating Systems</h4>
+                            <ul style="list-style-type: decimal; padding-left: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+                                <li>Operating System Concepts, Silberschatz A, Galvin P B, Gagne G, 10th Edition, Wiley, 2018.</li>
+                                <li>Modern Operating Systems, Tanenbaum A S, 4th Edition, Pearson, 2016.</li>
+                            </ul>
+                        </div>
+
+                        <div class="textbook-subject">
+                            <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 15px;"><i class="ph ph-books"></i> Database Management System</h4>
+                            <ul style="list-style-type: decimal; padding-left: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+                                <li>Fundamentals of Database Systems, Ramez Elmasri, Shamkant B. Navathe, Seventh edition, Pearson.</li>
+                            </ul>
+                        </div>
+
+                        <div class="textbook-subject">
+                            <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 15px;"><i class="ph ph-books"></i> Software Engineering</h4>
+                            <ul style="list-style-type: decimal; padding-left: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+                                <li>Fundamentals of Software Engineering, Rajib Mall, 5th Edition, PHI.</li>
+                                <li>Software Engineering a Practitioner’s Approach, Roger S. Pressman, 9th Edition, Mc-Graw Hill International Edition.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Fees Card (8. Separated from notices for better grid) -->
+                <div class="card fees-card" data-category="home">
+                    <div class="card-header">
+                        <h3>Fee Status</h3>
+                    </div>
+                    <div class="fee-card-inner bg-light-primary mb-2" style="background-color: #e0f2fe;">
+                        <div class="fee-info">
+                            <span class="fee-label text-primary">Total fees to be paid</span>
+                            <h2 class="fee-amount text-primary">₹1,05,000</h2>
+                        </div>
+                    </div>
+                    <div class="fee-card-inner bg-light-danger mt-2">
+                        <div class="fee-info">
+                            <span class="fee-label text-danger">Due Amount</span>
+                            <h2 class="fee-amount text-danger">₹30,000</h2>
+                            <p class="fee-deadline">Due by: 30 April 2026</p>
+                        </div>
+                    </div>
+                    <div class="fee-card-inner bg-light-success mt-2">
+                        <div class="fee-info">
+                            <span class="fee-label text-success">Last Payment</span>
+                            <h2 class="fee-amount text-success">₹75,000</h2>
+                            <p class="fee-deadline text-muted">Paid on: 18 February 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation (Mobile) -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active" data-tab="home">
+                <i class="ph-fill ph-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" data-tab="courses">
+                <i class="ph ph-books"></i>
+                <span>Courses</span>
+            </a>
+            <a href="#" class="nav-item" data-tab="exams">
+                <i class="ph ph-certificate"></i>
+                <span>Exams</span>
+            </a>
+            <a href="#" class="nav-item" data-tab="notice">
+                <i class="ph ph-megaphone"></i>
+                <span>Notice</span>
+            </a>
+
+        </nav>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
